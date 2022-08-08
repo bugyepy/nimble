@@ -1,5 +1,7 @@
 # Nimble
 
+[https://nimble-bugyepy.vercel.app](https://nimble-bugyepy.vercel.app)
+
 ## Getting Started
 
 First, run the development server:
