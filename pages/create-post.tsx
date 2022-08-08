@@ -38,9 +38,7 @@ const CreatePost = () => {
       authorId: fbUser.uid,
     };
 
-    setDoc(ref, post).then(() => {
-      alert("作ったよ");
-    });
+    setDoc(ref, post).then(() => {});
   };
 
   return (

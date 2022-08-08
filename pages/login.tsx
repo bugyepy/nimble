@@ -9,8 +9,12 @@ import { login, logout } from "../lib/auth";
 import styles from "../styles/Home.module.css";
 
 const LoginPage = () => {
-  const { fbUser, user } = useAuth();
+  const { fbUser, user, isLoading } = useAuth();
   const router = useRouter();
+
+  if (isLoading) {
+    return null;
+  }
 
   if (!user && fbUser) {
     router.push("/create-account");

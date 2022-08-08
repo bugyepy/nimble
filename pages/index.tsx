@@ -20,6 +20,10 @@ const Home: NextPage = () => {
     return null;
   }
 
+  if (!user && fbUser) {
+    router.push("/create-account");
+  }
+
   return (
     <div className={styles.container}>
       <Head>
