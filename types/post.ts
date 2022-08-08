@@ -5,4 +5,5 @@ export type Post = {
   createdAt: number;
   updatedAt: number | null;
   authorId: string;
+  authorName: string;
 };

@@ -2,7 +2,9 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Button from "../components/button";
 import { useAuth } from "../context/auth";
+import { logout } from "../lib/auth";
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
@@ -27,15 +29,24 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <p>ようこそ、{user?.nickname}</p>
-        <p>
-          あなたの投稿一覧は
-          <Link href="/posts">ココ</Link>
-        </p>
-        <p>
-          新規に投稿する=&gt;
-          <Link href="/create-post">ココ</Link>
-        </p>
+        <h1 className="font-bold text-lg">ようこそ、{user?.nickname}</h1>
+        <div>
+          <p>
+            投稿一覧は
+            <Link href="/posts">
+              <a className="text-green-600 font-bold">ココ</a>
+            </Link>
+          </p>
+          <p>
+            新規に投稿する場合は
+            <Link href="/create-post">
+              <a className="text-green-600 font-bold">ココ</a>
+            </Link>
+          </p>
+        </div>
+        <Button onClick={logout}>
+          <p className="mt-2">ログアウト</p>
+        </Button>
       </main>
     </div>
   );

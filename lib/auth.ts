@@ -3,9 +3,9 @@ import { auth } from "../firebase/client";
 
 export const login = () => {
   const authProvider = new GoogleAuthProvider();
+
   return signInWithPopup(auth, authProvider)
     .then((result) => {
-      console.log(result);
       alert(`${result.user.displayName}さん、ようこそ！`);
     })
     .catch((e) => {

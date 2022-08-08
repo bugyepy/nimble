@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { doc, setDoc } from "firebase/firestore";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -31,15 +32,18 @@ const CreateAccount = () => {
   const submit = (data: User) => {
     const ref = doc(db, `users/${fbUser.uid}`);
     setDoc(ref, data).then(() => {
-      alert("作ったよ");
       router.push("/");
     });
   };
 
   return (
-    <div className="container">
-      <h1>アカウント作るよ</h1>
-      <form onSubmit={handleSubmit(submit)} className="space-y-6">
+    <div className="container pt-6">
+      <Link href="/">
+        <a className="block text-slate-400 text-sm">トップに戻る</a>
+      </Link>
+      <h1 className="font-bold text-lg">Create Account</h1>
+      <p>アカウント作成</p>
+      <form onSubmit={handleSubmit(submit)} className="space-y-6 mt-4">
         <div>
           <label className="block mb-0.5" htmlFor="name">
             名前
@@ -111,7 +115,7 @@ const CreateAccount = () => {
           )}
         </div>
 
-        <Button>アカウント作るよ</Button>
+        <Button>アカウント作成</Button>
       </form>
     </div>
   );

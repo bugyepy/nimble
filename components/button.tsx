@@ -5,7 +5,7 @@ const Button = ({
   ...props
 }: ButtonHTMLAttributes<HTMLButtonElement> & { children: ReactNode }) => {
   return (
-    <button className="px-4 py-2 bg-emerald-400 text-white" {...props}>
+    <button className=" text-emerald-400 font-bold" {...props}>
       {children}
     </button>
   );

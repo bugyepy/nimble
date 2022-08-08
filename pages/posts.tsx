@@ -1,31 +1,28 @@
 import { format, formatDistanceToNow } from "date-fns";
 import { ja } from "date-fns/locale";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query } from "firebase/firestore";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../context/auth";
 import { db } from "../firebase/client";
 import { Post } from "../types/post";
+import { User } from "../types/user";
 
 const Posts = () => {
   const [posts, setPosts] = useState<Array<Post>>([]);
-  const { user, fbUser } = useAuth();
 
   useEffect(() => {
-    if (fbUser) {
-      const q = query(
-        collection(db, "posts"),
-        where("authorId", "==", fbUser?.uid)
-      );
+    const q = query(collection(db, "posts"));
 
-      getDocs(q).then((snap) => {
-        const docs = snap.docs.map((doc) => doc.data());
-        setPosts(docs as Array<Post>);
-      });
-    }
-  }, [fbUser]);
+    getDocs(q).then((snap) => {
+      const docs = snap.docs.map((doc) => doc.data());
+      setPosts(docs as Array<Post>);
+    });
+  }, []);
+
+  // TODO: AuthorIdをuser.nicknameにする
 
   return (
-    <div className="container">
+    <div className="container ">
       {posts.map((post) => (
         <a
           key={post.id}
@@ -36,8 +33,10 @@ const Posts = () => {
           <p className="text-slate-500">
             {format(post.createdAt, "yyyy年MM月dd日")}
           </p>
-          <p>{user?.name}</p>
-          {/* <p>{formatDistanceToNow(post.createdAt, { locale: ja })}前</p> */}
+          <p>Author: {post?.authorId}</p>
+          <p className="text-slate-400 text-sm">
+            {formatDistanceToNow(post.createdAt, { locale: ja })}前
+          </p>
         </a>
       ))}
     </div>
@@ -45,12 +44,13 @@ const Posts = () => {
 };
 
 const PostsPage = () => {
-  const { user } = useAuth();
-
   return (
-    <div className="container">
+    <div className="container pt-6">
+      <Link href="/">
+        <a className="block text-slate-400 text-sm">トップに戻る</a>
+      </Link>
       <h1 className="font-bold text-lg">Posts</h1>
-      <p>{user?.nickname}の投稿一覧</p>
+      <p>投稿一覧</p>
       <Posts />
     </div>
   );

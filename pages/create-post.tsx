@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { collection, doc, setDoc } from "firebase/firestore";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -43,11 +44,15 @@ const CreatePost = () => {
   };
 
   return (
-    <div>
-      <h1>CreatePost</h1>
+    <div className="container  pt-6">
+      <Link href="/">
+        <a className="block text-slate-400 text-sm">トップに戻る</a>
+      </Link>
+      <h1 className="font-bold text-lg">CreatePost</h1>
+      <p>投稿作成</p>
 
-      <form onSubmit={handleSubmit(submit)}>
-        <div>
+      <form onSubmit={handleSubmit(submit)} className="container">
+        <div className="pt-6">
           <label className="block mb-0.5" htmlFor="title">
             タイトル
           </label>
@@ -70,7 +75,7 @@ const CreatePost = () => {
           )}
         </div>
 
-        <div>
+        <div className="pt-2 pb-4">
           <label className="block mb-0.5" htmlFor="body">
             本文
           </label>
@@ -93,7 +98,7 @@ const CreatePost = () => {
           )}
         </div>
 
-        <Button>投稿するよ</Button>
+        <Button>投稿</Button>
       </form>
     </div>
   );
